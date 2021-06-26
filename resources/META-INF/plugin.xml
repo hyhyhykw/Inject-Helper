@@ -1,0 +1,49 @@
+<idea-plugin>
+    <id>com.inject.plugin.InjectHelper</id>
+    <name>InjectHelper</name>
+    <version>1.0.0</version>
+    <vendor email="hyhyhykw1@gmail.com" url="http://github.com/hyhyhykw">hyhyhykw</vendor>
+
+    <description><![CDATA[
+      Plugin for generating Inject injections from selected layout XMLs in activities/fragments/adapters.
+      ]]></description>
+
+    <change-notes><![CDATA[
+<html>
+
+  <b>1.0.0</b> (06/25/2021)
+  <ul>
+    <li>Initial release</li>
+  </ul>
+</html>
+      ]]></change-notes>
+
+    <idea-version since-build="202.7660.26"/>
+
+    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+                   on how to target different products -->
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <actions>
+        <action id="AddInjectionsAction"
+                class="com.inject.plugin.InjectAction"
+                text="Generate Inject BindView"
+                icon="PluginIcons.ICON"
+                description="Plugin for generating Inject injections from selected layout XMLs in activities/fragments/adapters">
+
+            <keyboard-shortcut
+                keymap="$default"
+                first-keystroke="shift control B"/>
+            <add-to-group group-id="GenerateGroup"/>
+            <!-- <add-to-group group-id="ProjectViewPopupMenu" /> file pop-up -->
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable instance="com.inject.plugin.Settings"/>
+        <codeInsight.lineMarkerProvider language="JAVA"
+                                        implementationClass="com.inject.plugin.navigation.NavigationMarkerProvider"/>
+    </extensions>
+</idea-plugin>
