@@ -2,10 +2,10 @@
     <id>com.inject.plugin.InjectHelper</id>
     <name>InjectHelper</name>
     <version>1.0.0</version>
-    <vendor email="hyhyhykw1@gmail.com" url="http://github.com/hyhyhykw">hyhyhykw</vendor>
+    <vendor email="hyhyhykw1@gmail.com" url="https://github.com/hyhyhykw/Inject-Helper">hyhyhykw</vendor>
 
     <description><![CDATA[
-      The plugin modified according to the ButterKnife plugin is used to generate custom Inject code.
+      The plugin modified according to the ButterKnife plugin is used to generate custom Inject code. See https://github.com/hyhyhykw/Injector.
       ]]></description>
 
     <change-notes><![CDATA[
