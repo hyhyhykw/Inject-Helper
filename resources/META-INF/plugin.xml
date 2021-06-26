@@ -5,15 +5,15 @@
     <vendor email="hyhyhykw1@gmail.com" url="http://github.com/hyhyhykw">hyhyhykw</vendor>
 
     <description><![CDATA[
-      Plugin for generating Inject injections from selected layout XMLs in activities/fragments/adapters.
+      The plugin modified according to the ButterKnife plugin is used to generate custom Inject code.
       ]]></description>
 
     <change-notes><![CDATA[
 <html>
 
-  <b>1.0.0</b> (06/25/2021)
+  <b>1.0.0</b> (06/26/2021)
   <ul>
-    <li>Initial release</li>
+    <li>Initial</li>
   </ul>
 </html>
       ]]></change-notes>
