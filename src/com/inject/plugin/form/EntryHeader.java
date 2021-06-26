@@ -17,11 +17,11 @@ public class EntryHeader extends JPanel {
     protected JLabel mLongEvent;
     protected JLabel mCheckChangeEvent;
     protected JLabel mOnTextChange;
-    protected JLabel mBeforeChange;
-    protected JLabel mAfterChange;
+//    protected JLabel mBeforeChange;
+//    protected JLabel mAfterChange;
     protected JLabel mOnPageChange;
-    protected JLabel mOnPageScroll;
-    protected JLabel mOnPageState;
+//    protected JLabel mOnPageScroll;
+//    protected JLabel mOnPageState;
 
     protected JLabel mName;
     protected OnCheckBoxStateChangedListener mAllListener;
@@ -60,25 +60,25 @@ public class EntryHeader extends JPanel {
         mOnTextChange.setPreferredSize(new Dimension(100, 26));
         mOnTextChange.setFont(new Font(mOnTextChange.getFont().getFontName(), Font.BOLD, mOnTextChange.getFont().getSize()));
 
-        mBeforeChange = new JLabel("BeforeTextChange");
-        mBeforeChange.setPreferredSize(new Dimension(100, 26));
-        mBeforeChange.setFont(new Font(mBeforeChange.getFont().getFontName(), Font.BOLD, mBeforeChange.getFont().getSize()));
-
-        mAfterChange = new JLabel("AfterTextChange");
-        mAfterChange.setPreferredSize(new Dimension(100, 26));
-        mAfterChange.setFont(new Font(mAfterChange.getFont().getFontName(), Font.BOLD, mAfterChange.getFont().getSize()));
+//        mBeforeChange = new JLabel("BeforeTextChange");
+//        mBeforeChange.setPreferredSize(new Dimension(100, 26));
+//        mBeforeChange.setFont(new Font(mBeforeChange.getFont().getFontName(), Font.BOLD, mBeforeChange.getFont().getSize()));
+//
+//        mAfterChange = new JLabel("AfterTextChange");
+//        mAfterChange.setPreferredSize(new Dimension(100, 26));
+//        mAfterChange.setFont(new Font(mAfterChange.getFont().getFontName(), Font.BOLD, mAfterChange.getFont().getSize()));
 
         mOnPageChange = new JLabel("OnPageChange");
         mOnPageChange.setPreferredSize(new Dimension(100, 26));
         mOnPageChange.setFont(new Font(mOnPageChange.getFont().getFontName(), Font.BOLD, mOnPageChange.getFont().getSize()));
 
-        mOnPageScroll = new JLabel("OnPageScroll");
-        mOnPageScroll.setPreferredSize(new Dimension(100, 26));
-        mOnPageScroll.setFont(new Font(mOnPageScroll.getFont().getFontName(), Font.BOLD, mOnPageScroll.getFont().getSize()));
-
-        mOnPageState = new JLabel("OnPageState");
-        mOnPageState.setPreferredSize(new Dimension(100, 26));
-        mOnPageState.setFont(new Font(mOnPageState.getFont().getFontName(), Font.BOLD, mOnPageState.getFont().getSize()));
+//        mOnPageScroll = new JLabel("OnPageScroll");
+//        mOnPageScroll.setPreferredSize(new Dimension(100, 26));
+//        mOnPageScroll.setFont(new Font(mOnPageScroll.getFont().getFontName(), Font.BOLD, mOnPageScroll.getFont().getSize()));
+//
+//        mOnPageState = new JLabel("OnPageState");
+//        mOnPageState.setPreferredSize(new Dimension(100, 26));
+//        mOnPageState.setFont(new Font(mOnPageState.getFont().getFontName(), Font.BOLD, mOnPageState.getFont().getSize()));
 
         mName = new JLabel("Variable Name");
         mName.setPreferredSize(new Dimension(100, 26));
@@ -101,16 +101,16 @@ public class EntryHeader extends JPanel {
         add(Box.createRigidArea(new Dimension(10, 0)));
         add(mOnTextChange);
         add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mBeforeChange);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mAfterChange);
-        add(Box.createRigidArea(new Dimension(10, 0)));
+//        add(mBeforeChange);
+//        add(Box.createRigidArea(new Dimension(10, 0)));
+//        add(mAfterChange);
+//        add(Box.createRigidArea(new Dimension(10, 0)));
         add(mOnPageChange);
         add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mOnPageScroll);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mOnPageState);
-        add(Box.createRigidArea(new Dimension(10, 0)));
+//        add(mOnPageScroll);
+//        add(Box.createRigidArea(new Dimension(10, 0)));
+//        add(mOnPageState);
+//        add(Box.createRigidArea(new Dimension(10, 0)));
 
         add(mName);
         add(Box.createHorizontalGlue());
