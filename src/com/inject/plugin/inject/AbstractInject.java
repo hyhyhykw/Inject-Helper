@@ -11,10 +11,7 @@ public abstract class AbstractInject implements IInject {
     private static final String mPackageName = "com.inject.annotation";
     private final Pattern mFieldAnnotationPattern = Pattern.compile("^@" + getFieldAnnotationSimpleName() + "\\(([^)]+)\\)$", Pattern.CASE_INSENSITIVE);
     private final String mFieldAnnotationCanonicalName = getFieldAnnotationSimpleName();
-    private final String mCanonicalBindStatement = getPackageName() + "." + getSimpleBindStatement();
-    private final String mCanonicalUnbindStatement = getPackageName() + "." + getSimpleUnbindStatement();
     private final String mOnClickCanonicalName = getPackageName() + ".OnClick";
-    private final String mUnbinderClassCanonicalName = getPackageName() + "." + getUnbinderClassSimpleName();
 
 
     @Override
@@ -37,29 +34,4 @@ public abstract class AbstractInject implements IInject {
         return mOnClickCanonicalName;
     }
 
-    @Override
-    public String getCanonicalBindStatement() {
-        return mCanonicalBindStatement;
-    }
-
-    @Override
-    public boolean isUnbindSupported() {
-        return true;
-    }
-
-    @Override
-    public boolean isUsingUnbinder() {
-        // Let's assume that this is going to stay after ButterKnife 8.
-        return true;
-    }
-
-    @Override
-    public String getCanonicalUnbindStatement() {
-        return mCanonicalUnbindStatement;
-    }
-
-    @Override
-    public String getUnbinderClassCanonicalName() {
-        return mUnbinderClassCanonicalName;
-    }
 }

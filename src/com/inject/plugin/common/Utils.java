@@ -271,18 +271,18 @@ public class Utils {
     /**
      * Parse ID of injected element (eg. R.id.text)
      *
-     * @param butterKnife ButterKnife version
+     * @param inject Inject version
      * @param annotation
      * @return
      */
-    public static String getInjectionID(@NotNull IInject butterKnife, String annotation) {
+    public static String getInjectionID(@NotNull IInject inject, String annotation) {
         String id = null;
 
         if (isEmptyString(annotation)) {
             return id;
         }
 
-        Matcher matcher = butterKnife.getFieldAnnotationPattern().matcher(annotation);
+        Matcher matcher = inject.getFieldAnnotationPattern().matcher(annotation);
         if (matcher.find()) {
             id = matcher.group(1);
         }
@@ -305,6 +305,16 @@ public class Utils {
         int cnt = 0;
         for (Element element : elements) {
             if (element.isClick) {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
+    public static int getTouchCount(ArrayList<Element> elements) {
+        int cnt = 0;
+        for (Element element : elements) {
+            if (element.isOnTouch) {
                 cnt++;
             }
         }

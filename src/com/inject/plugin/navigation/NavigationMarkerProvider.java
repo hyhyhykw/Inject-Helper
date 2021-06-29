@@ -37,20 +37,20 @@ public class NavigationMarkerProvider implements LineMarkerProvider {
     @Nullable
     @Override
     public LineMarkerInfo<?> getLineMarkerInfo(@NotNull final PsiElement element) {
-        final IInject butterKnife = InjectFactory.findButterKnifeForPsiElement(element.getProject(), element);
+        final IInject inject = InjectFactory.getInject();
         if (IS_FIELD_IDENTIFIER.test(element)) {
             return getNavigationLineMarker((PsiIdentifier) element,
-                    ButterKnifeLink.getButterKnifeLink(butterKnife, IS_FIELD_IDENTIFIER));
+                    InjectLink.getInjectLink(inject, IS_FIELD_IDENTIFIER));
         } else if (IS_METHOD_IDENTIFIER.test(element)) {
             return getNavigationLineMarker((PsiIdentifier) element,
-                    ButterKnifeLink.getButterKnifeLink(butterKnife, IS_METHOD_IDENTIFIER));
+                    InjectLink.getInjectLink(inject, IS_METHOD_IDENTIFIER));
         }
 
         return null;
     }
 
     @Nullable
-    private LineMarkerInfo<?> getNavigationLineMarker(@NotNull final PsiIdentifier element, @Nullable ButterKnifeLink link) {
+    private LineMarkerInfo<?> getNavigationLineMarker(@NotNull final PsiIdentifier element, @Nullable InjectLink link) {
         if (link == null) {
             return null;
         }
@@ -84,38 +84,36 @@ public class NavigationMarkerProvider implements LineMarkerProvider {
         return null;
     }
 
-    private static class ButterKnifeLink {
-        private static final Map<IInject, Map<Predicate<PsiElement>, ButterKnifeLink>> sMap =
-                new HashMap<>(
-                        InjectFactory.getSupportedButterKnives().length);
+    private static class InjectLink {
+        private static final Map<IInject, Map<Predicate<PsiElement>, InjectLink>> sMap =
+                new HashMap<>(1);
 
         static {
-            for (IInject butterKnife : InjectFactory.getSupportedButterKnives()) {
-                Map<Predicate<PsiElement>, ButterKnifeLink> sButterKnifeSubMap =
-                        new HashMap<>(2);
-                sMap.put(butterKnife, sButterKnifeSubMap);
+            IInject inject=InjectFactory.getInject();
+            Map<Predicate<PsiElement>, InjectLink> injectLinkMap =
+                    new HashMap<>(2);
+            sMap.put(inject, injectLinkMap);
 
-                sButterKnifeSubMap.put(IS_FIELD_IDENTIFIER,
-                        new ButterKnifeLink(butterKnife.getFieldAnnotationCanonicalName(),
-                                butterKnife.getOnClickAnnotationCanonicalName()));
-                sButterKnifeSubMap.put(IS_METHOD_IDENTIFIER,
-                        new ButterKnifeLink(butterKnife.getOnClickAnnotationCanonicalName(),
-                                butterKnife.getFieldAnnotationCanonicalName()));
-            }
+            injectLinkMap.put(IS_FIELD_IDENTIFIER,
+                    new InjectLink(inject.getFieldAnnotationCanonicalName(),
+                            inject.getOnClickAnnotationCanonicalName()));
+            injectLinkMap.put(IS_METHOD_IDENTIFIER,
+                    new InjectLink(inject.getOnClickAnnotationCanonicalName(),
+                            inject.getFieldAnnotationCanonicalName()));
         }
 
         private final String srcAnnotation;
         private final String dstAnnotation;
 
-        public ButterKnifeLink(String srcAnnotation, String dstAnnotation) {
+        public InjectLink(String srcAnnotation, String dstAnnotation) {
             this.srcAnnotation = srcAnnotation;
             this.dstAnnotation = dstAnnotation;
         }
 
         @Nullable
-        public static ButterKnifeLink getButterKnifeLink(@Nullable IInject butterKnife,
-                                                         @NotNull Predicate<PsiElement> predicate) {
-            Map<Predicate<PsiElement>, ButterKnifeLink> subMap = sMap.get(butterKnife);
+        public static InjectLink getInjectLink(@Nullable IInject inject,
+                                               @NotNull Predicate<PsiElement> predicate) {
+            Map<Predicate<PsiElement>, InjectLink> subMap = sMap.get(inject);
             if (subMap != null) {
                 return subMap.get(predicate);
             }
@@ -125,10 +123,10 @@ public class NavigationMarkerProvider implements LineMarkerProvider {
 
     private static class ClassMemberProcessor implements Processor<PsiMember> {
         private final String resourceId;
-        private final ButterKnifeLink link;
+        private final InjectLink link;
         private PsiMember resultMember;
 
-        public ClassMemberProcessor(@NotNull final String resourceId, @NotNull final ButterKnifeLink link) {
+        public ClassMemberProcessor(@NotNull final String resourceId, @NotNull final InjectLink link) {
             this.resourceId = resourceId;
             this.link = link;
         }

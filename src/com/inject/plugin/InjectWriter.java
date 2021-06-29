@@ -46,14 +46,17 @@ public class InjectWriter extends WriteCommandAction.Simple<Object> {
 
     @Override
     public void run() {
-        final IInject butterKnife = InjectFactory.findButterKnifeForPsiElement(mProject, mFile);
+        final IInject inject = InjectFactory.getInject();
 
         if (Utils.getInjectCount(mElements) > 0) {
-            generateFields(butterKnife);
+            generateFields(inject);
         }
 
         if (Utils.getClickCount(mElements) > 0) {
             generateClick();
+        }
+        if (Utils.getTouchCount(mElements) > 0) {
+            generateTouch();
         }
         if (Utils.getLongClickCount(mElements) > 0) {
             generateLongClick();
@@ -92,6 +95,63 @@ public class InjectWriter extends WriteCommandAction.Simple<Object> {
         styleManager.optimizeImports(mFile);
         styleManager.shortenClassReferences(mClass);
         new ReformatCodeProcessor(mProject, mClass.getContainingFile(), null, false).runWithoutProgress();
+    }
+
+    private void generateTouch() {
+        StringBuilder method = new StringBuilder();
+        method.append("@OnTouch({");
+        int clickCount = Utils.getClickCount(mElements);
+
+        int currentCount = 0;
+        for (Element element : mElements) {
+            if (element.isOnTouch) {
+                currentCount++;
+                if (currentCount == clickCount) {
+                    method.append(element.getFullID(true))
+                            .append("})");
+                } else {
+                    method.append(element.getFullID(true))
+                            .append(",");
+                }
+            }
+        }
+
+        method.append("boolean onViewTouch(View view, MotionEvent event) {");
+        method.append("int viewId = view.getId();");
+
+        method.append("int action = event.getAction();");
+        method.append("switch (action) {");
+        method.append("case MotionEvent.ACTION_UP:");
+        method.append("case MotionEvent.ACTION_DOWN:");
+        method.append("case MotionEvent.ACTION_MOVE:");
+        method.append("case MotionEvent.ACTION_CANCEL:");
+
+        int i = 0;
+        for (Element element : mElements) {
+            if (element.isOnTouch) {
+                if (i != 0) {
+                    method.append("else ");
+                }
+
+                method.append("if (viewId == ")
+                        .append(element.getFullID(false))
+                        .append("){");
+                method.append("}");
+                i = 1;
+            }
+        }
+
+        method.append("break;");
+        method.append("}");
+
+
+        method.append("return false;");
+        method.append("}");
+        mClass.add(mFactory.createMethodFromText(method.toString(), mClass));
+
+        addImport("com.inject.annotation.OnTouch");
+        addImport("android.view.View");
+        addImport("android.view.MotionEvent");
     }
 
     private void addImport(String clazz) {
@@ -445,7 +505,7 @@ public class InjectWriter extends WriteCommandAction.Simple<Object> {
     /**
      * Create fields for injections inside main class
      */
-    protected void generateFields(@NotNull IInject butterKnife) {
+    protected void generateFields(@NotNull IInject inject) {
 
         for (Element element : mElements) {
             if (!element.used) {
@@ -454,7 +514,7 @@ public class InjectWriter extends WriteCommandAction.Simple<Object> {
 
             StringBuilder injection = new StringBuilder();
             injection.append('@');
-            injection.append(butterKnife.getFieldAnnotationCanonicalName());
+            injection.append(inject.getFieldAnnotationCanonicalName());
             injection.append('(');
             injection.append('"');
             injection.append(element.getFullID(false));
@@ -480,5 +540,7 @@ public class InjectWriter extends WriteCommandAction.Simple<Object> {
             mClass.add(mFactory.createFieldFromText(injection.toString(), mClass));
             addImport(full);
         }
+
+        addImport("com.inject.annotation.BindView");
     }
 }

@@ -17,9 +17,7 @@ public class PsiHelper {
             final PsiNameValuePair[] attributes = psiAnnotation.getParameterList().getAttributes();
             if (attributes.length > 0) {
                 final PsiAnnotationMemberValue psiValue = attributes[0].getValue();
-                if (psiValue != null && value.equals(psiValue.getText())) {
-                    return true;
-                }
+                return psiValue != null && value.equals(psiValue.getText());
             }
         }
 

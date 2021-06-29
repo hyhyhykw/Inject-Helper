@@ -11,10 +11,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Entry extends JPanel {
@@ -27,9 +24,11 @@ public class Entry extends JPanel {
     protected JCheckBox mCheck;
     protected JLabel mType;
     protected JLabel mID;
+
     protected JCheckBox mEvent;
 
     protected JCheckBox mLongClickEvent;
+    protected JCheckBox mTouchEvent;
 
     protected JCheckBox mCheckChangeEvent;
 
@@ -67,15 +66,26 @@ public class Entry extends JPanel {
         }
         mCheck.addChangeListener(new CheckListener());
 
-        mEvent = new JCheckBox();
-        mEvent.setPreferredSize(new Dimension(100, 26));
+        JDialog eventDialog = new JDialog();
+        eventDialog.setTitle("Choose events for " + element.fieldName);
+        eventDialog.setPreferredSize(new Dimension(300, 250));
 
-        mLongClickEvent = new JCheckBox();
-        mLongClickEvent.setPreferredSize(new Dimension(100, 26));
+        JPanel eventContainer = new JPanel();
+        eventContainer.setLayout(new BoxLayout(eventContainer, BoxLayout.Y_AXIS));
+        JButton event = new JButton();
 
-        mCheckChangeEvent = new JCheckBox();
-        mCheckChangeEvent.setPreferredSize(new Dimension(100, 26));
+        event.setAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventDialog.setVisible(true);
+            }
+        });
 
+        mEvent = new JCheckBox("onClick");
+        mLongClickEvent = new JCheckBox("onLongClick");
+        mTouchEvent = new JCheckBox("onTouch");
+
+        mCheckChangeEvent = new JCheckBox("onCheckChange");
         mOnTextChangeEvent = new JCheckBox("onTextChange");
         mBeforeTextChangeEvent = new JCheckBox("beforeTextChange");
         mAfterTextChangeEvent = new JCheckBox("afterTextChange");
@@ -112,116 +122,42 @@ public class Entry extends JPanel {
         add(Box.createRigidArea(new Dimension(10, 0)));
         add(mID);
         add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mEvent);
+
+
+        add(event);
+        event.setText("chooseEvent");
         add(Box.createRigidArea(new Dimension(10, 0)));
 
-        add(mLongClickEvent);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mCheckChangeEvent);
-        add(Box.createRigidArea(new Dimension(10, 0)));
+        eventContainer.add(mEvent);
+        eventContainer.add(mLongClickEvent);
+        eventContainer.add(mTouchEvent);
+        eventContainer.add(mCheckChangeEvent);
+        eventContainer.add(mOnTextChangeEvent);
+        eventContainer.add(mBeforeTextChangeEvent);
+        eventContainer.add(mAfterTextChangeEvent);
 
+        mOnTextChangeEvent.setEnabled(element.canUseTextChange());
+        mBeforeTextChangeEvent.setEnabled(element.canUseTextChange());
+        mAfterTextChangeEvent.setEnabled(element.canUseTextChange());
 
-        JButton textChangeBtn = new JButton("textChange");
-        add(textChangeBtn);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        JPanel textChangeContainer = new JPanel();
-        textChangeContainer.setLayout(new BoxLayout(textChangeContainer, BoxLayout.Y_AXIS));
+        eventContainer.add(mOnPageChangeEvent);
+        eventContainer.add(mOnPageScrollEvent);
+        eventContainer.add(mOnPageStateChangeEvent);
 
-        textChangeContainer.add(mOnTextChangeEvent);
-        textChangeContainer.add(mBeforeTextChangeEvent);
-        textChangeContainer.add(mAfterTextChangeEvent);
+        mOnPageChangeEvent.setEnabled(element.canUsePage());
+        mOnPageScrollEvent.setEnabled(element.canUsePage());
+        mOnPageStateChangeEvent.setEnabled(element.canUsePage());
 
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.weightx = 1.0;
+        constraints.weighty = 1.0;
 
-        JDialog jDialog = new JDialog();
-        jDialog.setTitle(mElement.fieldName);
+        JPanel jPanel = new JPanel();
+        jPanel.add(eventContainer, constraints);
 
-        jDialog.setPreferredSize(new Dimension(
-                200, 120
-        ));
-
-        JPanel textPanel =new JPanel();
-        textPanel.add(textChangeContainer);
-        jDialog.add(textPanel);
-        jDialog.setLocationRelativeTo(mParent);
-        if (element.canUseTextChange()) {
-            textChangeBtn.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    jDialog.pack();
-                    jDialog.setVisible(true);
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-
-                }
-            });
-        }
-        textChangeBtn.setEnabled(element.canUseTextChange());
-
-
-        JButton pageChangeBtn = new JButton("pageChange");
-        add(pageChangeBtn);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        JPanel pageChangeContainer = new JPanel();
-        pageChangeContainer.add(mOnPageChangeEvent);
-        pageChangeContainer.add(mOnPageScrollEvent);
-        pageChangeContainer.add(mOnPageStateChangeEvent);
-        pageChangeContainer.setLayout(new BoxLayout(pageChangeContainer, BoxLayout.Y_AXIS));
-
-        JDialog pageChangeDlg = new JDialog();
-        pageChangeDlg.setTitle(mElement.fieldName);
-
-        pageChangeDlg.setPreferredSize(new Dimension(
-                200, 120
-        ));
-
-        JPanel pagePanel =new JPanel();
-        pagePanel.add(pageChangeContainer);
-
-        pageChangeDlg.add(pagePanel);
-        pageChangeDlg.setLocationRelativeTo(mParent);
-
-        if (element.canUsePage()) {
-            pageChangeBtn.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    pageChangeDlg.pack();
-                    pageChangeDlg.setVisible(true);
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                }
-            });
-        }
-        pageChangeBtn.setEnabled(element.canUsePage());
+        eventDialog.add(jPanel);
+        eventDialog.pack();
+        eventDialog.setLocationRelativeTo(null);
 
         add(mName);
         add(Box.createHorizontalGlue());
@@ -237,6 +173,9 @@ public class Entry extends JPanel {
         mElement.isLongClick = mLongClickEvent.isSelected();
 
         mElement.isCheckChange = mCheckChangeEvent.isSelected();
+
+        mElement.isOnTouch = mTouchEvent.isSelected();
+
 
         mElement.isTextChange = mOnTextChangeEvent.isSelected();
         mElement.isBeforeTextChange = mBeforeTextChangeEvent.isSelected();

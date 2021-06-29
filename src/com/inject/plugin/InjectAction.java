@@ -70,6 +70,7 @@ public class InjectAction extends AnAction implements IConfirmListener, ICancelL
 
         if (Utils.getInjectCount(elements) > 0 ||
                 Utils.getClickCount(elements) > 0 ||
+                Utils.getTouchCount(elements) > 0 ||
                 Utils.getLongClickCount(elements) > 0 ||
                 Utils.getCheckChangeCount(elements) > 0 ||
                 Utils.getOnTextChangeCount(elements) > 0 ||
@@ -108,7 +109,7 @@ public class InjectAction extends AnAction implements IConfirmListener, ICancelL
         }
         PsiClass clazz = getTargetClass(editor, file);
 
-        final IInject butterKnife = InjectFactory.findButterKnifeForPsiElement(project, file);
+        final IInject inject = InjectFactory.getInject();
 
         if (clazz == null) return;
 
@@ -122,7 +123,7 @@ public class InjectAction extends AnAction implements IConfirmListener, ICancelL
             annotations = field.getFirstChild().getText().split(" ");
 
             for (String annotation : annotations) {
-                id = Utils.getInjectionID(butterKnife, annotation.trim());
+                id = Utils.getInjectionID(inject, annotation.trim());
                 if (!Utils.isEmptyString(id)) {
                     ids.add(id);
                 }

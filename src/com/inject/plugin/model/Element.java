@@ -26,6 +26,8 @@ public class Element {
     public boolean isClick = true;
     public boolean isLongClick = true;
 
+    public boolean isOnTouch = true;
+
     public boolean isCheckChange = true;
     public boolean isTextChange = true;
     public boolean isBeforeTextChange = true;

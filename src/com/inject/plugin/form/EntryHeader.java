@@ -14,12 +14,12 @@ public class EntryHeader extends JPanel {
     protected JLabel mType;
     protected JLabel mID;
     protected JLabel mEvent;
-    protected JLabel mLongEvent;
-    protected JLabel mCheckChangeEvent;
-    protected JLabel mOnTextChange;
+//    protected JLabel mLongEvent;
+//    protected JLabel mCheckChangeEvent;
+//    protected JLabel mOnTextChange;
 //    protected JLabel mBeforeChange;
 //    protected JLabel mAfterChange;
-    protected JLabel mOnPageChange;
+//    protected JLabel mOnPageChange;
 //    protected JLabel mOnPageScroll;
 //    protected JLabel mOnPageState;
 
@@ -44,21 +44,21 @@ public class EntryHeader extends JPanel {
         mID.setPreferredSize(new Dimension(100, 26));
         mID.setFont(new Font(mID.getFont().getFontName(), Font.BOLD, mID.getFont().getSize()));
 
-        mEvent = new JLabel("OnClick");
+        mEvent = new JLabel("Event");
         mEvent.setPreferredSize(new Dimension(100, 26));
         mEvent.setFont(new Font(mEvent.getFont().getFontName(), Font.BOLD, mEvent.getFont().getSize()));
 
-        mLongEvent = new JLabel("OnLongClick");
-        mLongEvent.setPreferredSize(new Dimension(100, 26));
-        mLongEvent.setFont(new Font(mLongEvent.getFont().getFontName(), Font.BOLD, mLongEvent.getFont().getSize()));
-
-        mCheckChangeEvent = new JLabel("OnCheckChanged");
-        mCheckChangeEvent.setPreferredSize(new Dimension(100, 26));
-        mCheckChangeEvent.setFont(new Font(mCheckChangeEvent.getFont().getFontName(), Font.BOLD, mCheckChangeEvent.getFont().getSize()));
-
-        mOnTextChange = new JLabel("OnTextChange");
-        mOnTextChange.setPreferredSize(new Dimension(100, 26));
-        mOnTextChange.setFont(new Font(mOnTextChange.getFont().getFontName(), Font.BOLD, mOnTextChange.getFont().getSize()));
+//        mLongEvent = new JLabel("OnLongClick");
+//        mLongEvent.setPreferredSize(new Dimension(100, 26));
+//        mLongEvent.setFont(new Font(mLongEvent.getFont().getFontName(), Font.BOLD, mLongEvent.getFont().getSize()));
+//
+//        mCheckChangeEvent = new JLabel("OnCheckChanged");
+//        mCheckChangeEvent.setPreferredSize(new Dimension(100, 26));
+//        mCheckChangeEvent.setFont(new Font(mCheckChangeEvent.getFont().getFontName(), Font.BOLD, mCheckChangeEvent.getFont().getSize()));
+//
+//        mOnTextChange = new JLabel("OnTextChange");
+//        mOnTextChange.setPreferredSize(new Dimension(100, 26));
+//        mOnTextChange.setFont(new Font(mOnTextChange.getFont().getFontName(), Font.BOLD, mOnTextChange.getFont().getSize()));
 
 //        mBeforeChange = new JLabel("BeforeTextChange");
 //        mBeforeChange.setPreferredSize(new Dimension(100, 26));
@@ -68,9 +68,9 @@ public class EntryHeader extends JPanel {
 //        mAfterChange.setPreferredSize(new Dimension(100, 26));
 //        mAfterChange.setFont(new Font(mAfterChange.getFont().getFontName(), Font.BOLD, mAfterChange.getFont().getSize()));
 
-        mOnPageChange = new JLabel("OnPageChange");
-        mOnPageChange.setPreferredSize(new Dimension(100, 26));
-        mOnPageChange.setFont(new Font(mOnPageChange.getFont().getFontName(), Font.BOLD, mOnPageChange.getFont().getSize()));
+//        mOnPageChange = new JLabel("OnPageChange");
+//        mOnPageChange.setPreferredSize(new Dimension(100, 26));
+//        mOnPageChange.setFont(new Font(mOnPageChange.getFont().getFontName(), Font.BOLD, mOnPageChange.getFont().getSize()));
 
 //        mOnPageScroll = new JLabel("OnPageScroll");
 //        mOnPageScroll.setPreferredSize(new Dimension(100, 26));
@@ -95,18 +95,18 @@ public class EntryHeader extends JPanel {
         add(mEvent);
         add(Box.createRigidArea(new Dimension(10, 0)));
 
-        add(mLongEvent);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mCheckChangeEvent);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mOnTextChange);
-        add(Box.createRigidArea(new Dimension(10, 0)));
+//        add(mLongEvent);
+//        add(Box.createRigidArea(new Dimension(10, 0)));
+//        add(mCheckChangeEvent);
+//        add(Box.createRigidArea(new Dimension(10, 0)));
+//        add(mOnTextChange);
+//        add(Box.createRigidArea(new Dimension(10, 0)));
 //        add(mBeforeChange);
 //        add(Box.createRigidArea(new Dimension(10, 0)));
 //        add(mAfterChange);
 //        add(Box.createRigidArea(new Dimension(10, 0)));
-        add(mOnPageChange);
-        add(Box.createRigidArea(new Dimension(10, 0)));
+//        add(mOnPageChange);
+//        add(Box.createRigidArea(new Dimension(10, 0)));
 //        add(mOnPageScroll);
 //        add(Box.createRigidArea(new Dimension(10, 0)));
 //        add(mOnPageState);
